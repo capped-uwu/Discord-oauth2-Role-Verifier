@@ -6,12 +6,13 @@ import secrets
 
 client_id = 'your bot client id'
 client_secret = 'your bot client secret'
-redirect_uri = 'redirect uri (tutorial in readme)'
+redirect_uri = 'your redirect uri(turorial in readme)'
 
 TOKEN = 'your bot token'
 
-role_id = role id
-server_id = server id
+role_id = your role id
+server_id = your server id
+allowed_channel_id = your allow channel id # NEW! ALLOWED CHANNEL ID(verify channel)
 
 intents = discord.Intents.all()
 
@@ -24,13 +25,17 @@ async def create_session():
 
 @bot.command()
 async def oauth(ctx):
+    if ctx.channel.id != allowed_channel_id:
+        await ctx.message.delete()
+        return await ctx.send("This command can only be used in the specified channel.", delete_after=1)
+
     token = secrets.token_urlsafe(16)
     state = f"{ctx.guild.id}-{ctx.author.id}-{token}"
     oauth_states[state] = (ctx.guild.id, ctx.author.id)
 
     oauth_url = f"https://discord.com/api/oauth2/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code&scope=identify%20guilds.join&state={state}"
 
-    message = await ctx.author.send("[Verify link](<"f"{oauth_url}"">)") #this is message(hypertext)
+    await ctx.author.send(f"[Verify link]({oauth_url})")
 
     # Delete the command message
     await ctx.message.delete()
