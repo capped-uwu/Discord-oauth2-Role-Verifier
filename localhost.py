@@ -110,3 +110,5 @@ async def run_bot_and_server():
     await bot.start(TOKEN)
 
 asyncio.run(run_bot_and_server())
+
+#made by capped_.b(discord)
