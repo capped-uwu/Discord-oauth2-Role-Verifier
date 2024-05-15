@@ -1,4 +1,4 @@
-# REMOVE THE UNWANTED MESSAGE IN VERIFY CHANNEL A
+# REMOVE THE UNWANTED MESSAGE IN VERIFY CHANNEL
 
 import discord
 from discord.ext import tasks, commands
@@ -10,7 +10,7 @@ intents.message_content = True
 bot = commands.Bot(command_prefix='notuseprefixlolololololololo!', intents=intents)
 
 TOKEN = your-bot-token'
-CHANNEL_ID = your_channel_id_for_message_delete
+CHANNEL_ID = your_verify_channel_id
 
 @bot.event
 async def on_ready():
