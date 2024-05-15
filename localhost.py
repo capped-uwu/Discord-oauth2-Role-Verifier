@@ -94,13 +94,12 @@ async def root_handler(request):
     return web.Response(text="uptimerobot")
 
 async def run_bot_and_server():
-    # Start web server
     app = web.Application()
     app.router.add_get('/callback', callback)
-    app.router.add_get('/', root_handler)  # Add route for root URL
+    app.router.add_get('/', root_handler)
     runner = web.AppRunner(app)
     await runner.setup()
-    site = web.TCPSite(runner)
+    site = web.TCPSite(runner, 'localhost', 5000) #local host port 5000
     await site.start()
 
     await bot.start(TOKEN)
