@@ -13,6 +13,7 @@ TOKEN = 'your bot token'
 role_id = your role id
 server_id = your server id
 allowed_channel_id = your allow channel id # NEW! ALLOWED CHANNEL ID(verify channel)
+log_channel_id = your log channel id
 
 intents = discord.Intents.all()
 
@@ -77,6 +78,10 @@ async def _assign_role(guild, member_id, code, session):
 
     await member.add_roles(role)
     print(f"Role {role.name} has been assigned to {member.display_name}.")
+
+    log_channel = guild.get_channel(log_channel_id)
+    if log_channel:
+        await log_channel.send(f"Role {role.name} has been assigned to {member.mention}.")
 
 async def callback(request):
     code = request.query.get('code')
